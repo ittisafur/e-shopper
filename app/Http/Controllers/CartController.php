@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Model\Product;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
-class ShopController extends Controller
+class CartController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(9);
-        return view('pages.shop.shop-index', compact('products'));
+        countries();
+        return view('pages.cart-checkout.cart-index');
     }
 
     /**
@@ -36,7 +37,21 @@ class ShopController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $duplicate = Cart::search(function($cartItem, $rowId) use ($request){
+            return $cartItem->id === $request->id;
+        });
+
+        if($duplicate->isNotEmpty())
+        {
+            return redirect()->route('cart.index')->with('success_message', 'Item is already in your cart');
+        }
+        Cart::add([
+            'id' => $request->id,
+            'name' => $request->name,
+            'qty' => '1',
+            'price' => $request->price
+        ])->associate(Product::class);
+        return redirect()->route('cart.index')->with('success_message', 'You did it');
     }
 
     /**
@@ -45,10 +60,9 @@ class ShopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($id)
     {
-        $product = Product::where('slug', $slug)->firstOrFail();
-        return view('pages.shop.shop-single', compact('product'));
+        //
     }
 
     /**
@@ -82,6 +96,7 @@ class ShopController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Cart::remove($id);
+        return back()->with('success_message', 'Item has been removed from cart');
     }
 }
