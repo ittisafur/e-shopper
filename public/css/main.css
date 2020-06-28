@@ -2454,3 +2454,11 @@ textarea {
     width: 200px;
     height: auto;
 }
+
+.payment-options ul{
+    margin: 0;
+    padding: 0;
+}
+.payment-options li {
+    display: inline-block;
+}

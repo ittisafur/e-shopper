@@ -17,12 +17,18 @@
 </head><!--/head-->
 
 <body>
-@include('partials.header')
+<div id="app">
+    @include('partials.header')
 
-@yield('content')
-@include('partials.footer')
 
-@include('partials.js.scripts')
-@yield('custom-scripts')
+    @yield('content')
+
+
+    @include('partials.footer')
+
+    @include('partials.js.scripts')
+    @yield('custom-scripts')
+
+</div>
 </body>
 </html>
