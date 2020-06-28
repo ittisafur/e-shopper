@@ -29,6 +29,12 @@ Route::delete('/cart/{rowId}', 'CartController@destroy')->name('cart.destroy');
 Route::get('/cartremove', function(){
     Cart::destroy();
 });
+Route::get('/wishlistremove', function(){
+   Cart::instance('wishlist')->destroy();
+});
+Route::get('/wishlist', 'WishlistController@index')->name('wishlist.index');
+Route::post('/wishlist', 'WishlistController@store')->name('wishlist.store');
+Route::delete('/wishlist/{rowId}', 'WishlistController@destroy')->name('wishlist.destroy');
 
 Route::get('/{any}', 'HomeController@notFound');
 

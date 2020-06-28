@@ -176,7 +176,16 @@
                                     </div>
                                     <div class="choose">
                                         <ul class="nav nav-pills nav-justified">
-                                            <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                            <li>
+                                                <form action="{{route('wishlist.store')}}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{$product->id}}">
+                                                    <input type="hidden" name="name" value="{{$product->name}}">
+                                                    <input type="hidden" name="details" value="{{$product->details}}">
+                                                    <input type="hidden" name="price" value="{{$product->price}}">
+                                                    <button type="submit"><i class="fa fa-plus-square"></i>Add to wishlist</button>
+                                                </form>
+                                            </li>
                                             <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
                                         </ul>
                                     </div>

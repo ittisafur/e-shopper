@@ -6,7 +6,7 @@ use App\Model\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
-class CartController extends Controller
+class WishlistController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class CartController extends Controller
      */
     public function index()
     {
-//        dd(Cart::content());
-        return view('pages.cart-checkout.cart-index');
+//        dd(Cart::instance('wishlist')->content());
+        return view('pages.cart-checkout.wishlist');
     }
 
     /**
@@ -37,21 +37,20 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $duplicate = Cart::search(function($cartItem, $rowId) use ($request){
+        $duplication = Cart::instance('wishlist')->search(function($cartItem, $rowId) use ($request){
             return $cartItem->id === $request->id;
         });
-
-        if($duplicate->isNotEmpty())
-        {
+        if($duplication->isNotEmpty()){
             return redirect()->route('cart.index')->with('success_message', 'Item is already in your cart');
         }
-        Cart::add([
+        Cart::instance('wishlist')->add([
             'id' => $request->id,
             'name' => $request->name,
-            'qty' => '1',
+            'details' => $request->details,
+            'qty' => 1,
             'price' => $request->price
         ])->associate(Product::class);
-        return redirect()->route('cart.index')->with('success_message', 'You did it');
+        return redirect()->route('wishlist.index');
     }
 
     /**
@@ -96,7 +95,7 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        Cart::remove($id);
-        return back()->with('success_message', 'Item has been removed from cart');
+        Cart::instance('wishlist')->remove($id);
+        return redirect()->route('wishlist.index')->with('success_message', 'Item has been removed from the wishlist');
     }
 }
