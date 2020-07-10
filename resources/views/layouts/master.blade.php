@@ -27,7 +27,7 @@
     @include('partials.footer')
 
     @include('partials.js.scripts')
-    @yield('custom-scripts')
+    @yield('custom-js')
 
 </div>
 </body>

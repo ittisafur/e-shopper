@@ -25,9 +25,9 @@
                         @foreach(Cart::content() as $item)
                             <tr>
                                 <td class="cart_product">
-                                    <a href="{{route('shop.show', $item->model->slug)}}"><img class="cart-image"
-                                                                                              src="images/shop/product{{rand(1,12)}}.jpg"
-                                                                                              alt=""></a>
+                                    <a href="{{route('shop.show', $item->model->slug)}}">
+                                        <img class="cart-image" src="images/shop/product{{rand(1,12)}}.jpg" alt="">
+                                    </a>
                                 </td>
                                 <td class="cart_description">
                                     <h4><a href="{{route('shop.show', $item->model->slug)}}">{{$item->model->name}}</a>
@@ -40,7 +40,7 @@
                                 <td class="cart_quantity">
                                     <div class="cart_quantity_button" id="item">
                                         <a class="cart_quantity_up" id="add" href="#"> + </a>
-                                        <input id="incrementDecrement" class="cart_quantity_input" type="text"
+                                        <input class="cart_quantity_input" type="text"
                                                name="quantity" value="1"
                                                autocomplete="off" size="2">
                                         <a class="cart_quantity_down" id="deduct" href="#"> - </a>
@@ -51,7 +51,8 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="cart_quantity_delete" href=""><i
-                                                class="fa fa-times"></i></button>
+                                                class="fa fa-times"></i>
+                                        </button>
 
                                     </form>
                                 </td>
@@ -76,55 +77,6 @@
                         delivery cost.</p>
                 </div>
                 <div class="row">
-                    {{--                <div class="col-sm-6">--}}
-                    {{--                    <div class="chose_area">--}}
-                    {{--                        <ul class="user_option">--}}
-                    {{--                            <li>--}}
-                    {{--                                <input type="checkbox">--}}
-                    {{--                                <label>Use Coupon Code</label>--}}
-                    {{--                            </li>--}}
-                    {{--                            <li>--}}
-                    {{--                                <input type="checkbox">--}}
-                    {{--                                <label>Use Gift Voucher</label>--}}
-                    {{--                            </li>--}}
-                    {{--                            <li>--}}
-                    {{--                                <input type="checkbox">--}}
-                    {{--                                <label>Estimate Shipping & Taxes</label>--}}
-                    {{--                            </li>--}}
-                    {{--                        </ul>--}}
-                    {{--                        <ul class="user_info">--}}
-                    {{--                            <li class="single_field">--}}
-                    {{--                                <label>Country:</label>--}}
-                    {{--                                <select>--}}
-                    {{--                                    @foreach(countries() as $countries)--}}
-                    {{--                                        <option>{{$countries['native_name']}}</option>--}}
-                    {{--                                    @endforeach--}}
-                    {{--                                </select>--}}
-
-                    {{--                            </li>--}}
-                    {{--                            <li class="single_field">--}}
-                    {{--                                <label>Region / State:</label>--}}
-                    {{--                                <select>--}}
-                    {{--                                    <option>Select</option>--}}
-                    {{--                                    <option>Dhaka</option>--}}
-                    {{--                                    <option>London</option>--}}
-                    {{--                                    <option>Dillih</option>--}}
-                    {{--                                    <option>Lahore</option>--}}
-                    {{--                                    <option>Alaska</option>--}}
-                    {{--                                    <option>Canada</option>--}}
-                    {{--                                    <option>Dubai</option>--}}
-                    {{--                                </select>--}}
-
-                    {{--                            </li>--}}
-                    {{--                            <li class="single_field zip-field">--}}
-                    {{--                                <label>Zip Code:</label>--}}
-                    {{--                                <input type="text">--}}
-                    {{--                            </li>--}}
-                    {{--                        </ul>--}}
-                    {{--                        <a class="btn btn-default update" href="">Get Quotes</a>--}}
-                    {{--                        <a class="btn btn-default check_out" href="">Continue</a>--}}
-                    {{--                    </div>--}}
-                    {{--                </div>--}}
                     <div class="col-sm-12">
                         <div class="total_area">
                             <ul>
@@ -140,7 +92,113 @@
                             </form>
                         </div>
                     </div>
+
                 </div>
+
+                <div class="recommended_items"><!--recommended_items-->
+                    <h2 class="title text-center">recommended items</h2>
+
+                    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend1.jpg" alt=""/>
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i
+                                                        class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend2.jpg" alt=""/>
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i
+                                                        class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend3.jpg" alt=""/>
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i
+                                                        class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend1.jpg" alt=""/>
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i
+                                                        class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend2.jpg" alt=""/>
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i
+                                                        class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="images/home/recommend3.jpg" alt=""/>
+                                                <h2>$56</h2>
+                                                <p>Easy Polo Black Edition</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i
+                                                        class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="left recommended-item-control" href="#recommended-item-carousel"
+                           data-slide="prev">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                        <a class="right recommended-item-control" href="#recommended-item-carousel"
+                           data-slide="next">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div><!--/recommended_items-->
             </div>
         </section><!--/#do_action-->
     @endif
@@ -155,13 +213,13 @@
                 let input = item.querySelector(".cart_quantity_input");
                 let minusBtn = item.querySelector(".cart_quantity_down");
 
-                plusBtn.addEventListener("click", function(e) {
+                plusBtn.addEventListener("click", function (e) {
                     e.preventDefault();
                     console.log('added')
-                    input.value++;
+                    return input.value++;
                 });
 
-                minusBtn.addEventListener("click", function(e) {
+                minusBtn.addEventListener("click", function (e) {
                     e.preventDefault();
                     if (input.value < 2) return;
                     input.value--;

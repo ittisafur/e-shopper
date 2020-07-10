@@ -39,7 +39,10 @@
                                 </td>
                                 <td class="cart_quantity">
                                     <div class="cart_quantity_button">
-                                        <button type="submit">Add To Cart</button>
+                                        <form action="{{route('wishlist.switchtocart', $item->rowId)}}" method="POST">
+                                            @csrf
+                                            <button type="submit">Add To Cart</button>
+                                        </form>
                                     </div>
                                 </td>
                                 <td class="cart_price">

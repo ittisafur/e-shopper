@@ -27,15 +27,18 @@ Route::get('/cart', 'CartController@index')->name('cart.index');
 Route::post('/cart', 'CartController@store')->name('cart.store');
 Route::delete('/cart/{rowId}', 'CartController@destroy')->name('cart.destroy');
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
-Route::get('/cartremove', function(){
-    Cart::destroy();
-});
-Route::get('/wishlistremove', function(){
-   Cart::instance('wishlist')->destroy();
-});
+//Route::get('/cartremove', function(){
+//    Cart::destroy();
+//});
+//Route::get('/wishlistremove', function(){
+//   Cart::instance('wishlist')->destroy();
+//});
 Route::get('/wishlist', 'WishlistController@index')->name('wishlist.index');
 Route::post('/wishlist', 'WishlistController@store')->name('wishlist.store');
 Route::delete('/wishlist/{rowId}', 'WishlistController@destroy')->name('wishlist.destroy');
+Route::post('/wishlist/{rowId}', 'WishlistController@switchToCart')->name('wishlist.switchtocart');
 
+
+Auth::routes();
 Route::get('/{any}', 'HomeController@notFound');
 

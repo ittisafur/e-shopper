@@ -20,27 +20,38 @@ class WishlistController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Switch to Cart by Removing the Wishlist.
      *
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return void
      */
-    public function create()
+    public function switchToCart($id)
     {
-        //
+        $item = Cart::instance('wishlist')->get($id);
+        Cart::instance('wishlist')->remove($id);
+        $duplicates = Cart::instance('default')->search(function ($cartItem, $rowId) use ($id) {
+            return $rowId === $id;
+        });
+
+        if ($duplicates->isNotEmpty()) {
+            return redirect()->route('cart.index')->with('success_message', 'Item is already in your cart');
+        }
+        Cart::instance('default')->add($item->id, $item->name, 1, $item->price)->associate(Product::class);
+        return redirect()->route('cart.index')->with('success_message', 'Item added to your cart from wishlist');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $duplication = Cart::instance('wishlist')->search(function($cartItem, $rowId) use ($request){
+        $duplication = Cart::instance('wishlist')->search(function ($cartItem, $rowId) use ($request) {
             return $cartItem->id === $request->id;
         });
-        if($duplication->isNotEmpty()){
+        if ($duplication->isNotEmpty()) {
             return redirect()->route('cart.index')->with('success_message', 'Item is already in your cart');
         }
         Cart::instance('wishlist')->add([
@@ -54,43 +65,9 @@ class WishlistController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

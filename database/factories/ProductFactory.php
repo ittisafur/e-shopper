@@ -16,5 +16,6 @@ $factory->define(Product::class, function (Faker $faker) {
         'details' => $faker->realText(50, 2),
         'description' => $faker->realText(200,2),
         'product_stock' => $faker->numberBetween(5,100),
+        'featured' => rand(0,1)
     );
 });

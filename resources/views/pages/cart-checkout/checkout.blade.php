@@ -36,20 +36,7 @@
 
             <div class="shopper-informations">
                 <div class="row">
-                    <div class="col-sm-3">
-                        <div class="shopper-info">
-                            <p>Shopper Information</p>
-                            <form>
-                                <input type="text" placeholder="Display Name">
-                                <input type="text" placeholder="User Name">
-                                <input type="password" placeholder="Password">
-                                <input type="password" placeholder="Confirm password">
-                            </form>
-                            <a class="btn btn-primary" href="">Get Quotes</a>
-                            <a class="btn btn-primary" href="">Continue</a>
-                        </div>
-                    </div>
-                    <div class="col-sm-5 clearfix">
+                    <div class="col-sm-8 clearfix">
                         <div class="bill-to">
                             <p>Bill To</p>
                             <div class="form-one">
@@ -102,7 +89,7 @@
                             <p>Shipping Order</p>
                             <textarea name="message" placeholder="Notes about your order, Special Notes for Delivery"
                                       rows="16"></textarea>
-                            <label><input type="checkbox"> Shipping to bill address</label>
+                            
                         </div>
                     </div>
                 </div>
