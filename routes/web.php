@@ -1,8 +1,5 @@
 <?php
 
-use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +23,7 @@ Route::get('/shop/{productSlug}', 'ShopController@show')->name('shop.show');
 Route::get('/cart', 'CartController@index')->name('cart.index');
 Route::post('/cart', 'CartController@store')->name('cart.store');
 Route::delete('/cart/{rowId}', 'CartController@destroy')->name('cart.destroy');
-Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
+Route::get('/checkout', 'CheckoutController@index')->name('checkout.index')->middleware('auth');
 //Route::get('/cartremove', function(){
 //    Cart::destroy();
 //});
@@ -37,8 +34,11 @@ Route::get('/wishlist', 'WishlistController@index')->name('wishlist.index');
 Route::post('/wishlist', 'WishlistController@store')->name('wishlist.store');
 Route::delete('/wishlist/{rowId}', 'WishlistController@destroy')->name('wishlist.destroy');
 Route::post('/wishlist/{rowId}', 'WishlistController@switchToCart')->name('wishlist.switchtocart');
-
+Route::get('/account/{username}', 'AccountController@index')->name('account.index')->middleware('auth');
 
 Auth::routes();
-Route::get('/{any}', 'HomeController@notFound');
 
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
+Route::get('/{any}', 'HomeController@notFound');

@@ -59,11 +59,25 @@
                 <div class="col-md-8 clearfix">
                     <div class="shop-menu clearfix pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href=""><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="{{route('wishlist.index')}}"><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a href="{{route('cart.index')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <li><a href="{{route('login')}}"><i class="fa fa-lock"></i> Login</a></li>
+                            @if(Auth::check())
+                                <li><a href="{{route('checkout.index')}}"><i class="fa fa-crosshairs"></i> Checkout</a>
+                                </li>
+                                <li><a href="{{route('wishlist.index')}}"><i class="fa fa-star"></i> Wishlist</a></li>
+                                <li><a href="{{route('account.index', Auth::user()->name)}}"><i class="fa fa-user"></i> Account</a></li>
+                                <li>
+                                    <a href="#"
+                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <i class="fa fa-lock"></i> {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+                            @else
+                                <li><a href="{{route('login')}}"><i class="fa fa-lock"></i> Login</a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
