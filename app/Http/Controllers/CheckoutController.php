@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Cartalyst\Stripe\Exception\CardErrorException;
+use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Illuminate\Http\Request;
+
 
 class CheckoutController extends Controller
 {
@@ -13,6 +16,7 @@ class CheckoutController extends Controller
      */
     public function index()
     {
+
         return view('pages.cart-checkout.checkout');
     }
 
@@ -29,18 +33,34 @@ class CheckoutController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $charge = Stripe::charges()->create([
+                'amount' => 40,
+                'currency' => 'CAD',
+                'source' => $request->stripeToken,
+                'description' => 'Description goes here',
+                'receipt_email' => $request->email,
+                'metadata' => [
+                    'data1' => 'metadata 1',
+                    'data2' => 'metadata 2',
+                ]
+            ]);
+
+            return back()->with('success_message', 'Thank you for your payment');
+        } catch (CardErrorException $e) {
+            return back()->withErrors('Error !'. $e->getMessage());
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -51,7 +71,7 @@ class CheckoutController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -62,8 +82,8 @@ class CheckoutController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -74,7 +94,7 @@ class CheckoutController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

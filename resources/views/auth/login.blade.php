@@ -4,7 +4,7 @@
     <section id="form"><!--form-->
         <div class="container">
             <div class="row">
-                <div class="col-sm-4 col-sm-offset-1">
+                <div class="col-sm-6">
                     <div class="login-form"><!--login form-->
                         <h2>Login to your account</h2>
                         <form method="POST" action="{{ route('login') }}">
@@ -71,12 +71,14 @@
                                 </div>
                             </div>
                         </form>
+                        <h2 class="or">OR</h2>
+                        <a href="{{route('login.facebook')}}" >Use Facebook to login</a>
                     </div><!--/login form-->
                 </div>
                 <div class="col-sm-1">
                     <h2 class="or">OR</h2>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     <div class="signup-form"><!--sign up form-->
                         <h2>New User Signup!</h2>
 

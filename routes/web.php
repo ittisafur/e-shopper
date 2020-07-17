@@ -34,9 +34,15 @@ Route::get('/wishlist', 'WishlistController@index')->name('wishlist.index');
 Route::post('/wishlist', 'WishlistController@store')->name('wishlist.store');
 Route::delete('/wishlist/{rowId}', 'WishlistController@destroy')->name('wishlist.destroy');
 Route::post('/wishlist/{rowId}', 'WishlistController@switchToCart')->name('wishlist.switchtocart');
+Route::post('/checkout', 'CheckoutController@store')->name('checkout.payment');
 Route::get('/account/{username}', 'AccountController@index')->name('account.index')->middleware('auth');
+Route::post('/account', 'AccountController@store')->name('account.store')->middleware('auth');
 
-Auth::routes();
+
+
+Route::get('login/facebook', 'Auth\LoginController@redirectToProvider')->name('login.facebook');
+Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
+Auth::routes(['verify' => true]);
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

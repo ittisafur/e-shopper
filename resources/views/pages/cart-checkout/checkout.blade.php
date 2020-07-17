@@ -1,5 +1,42 @@
 @extends('layouts.master')
+@section('custom-css')
+    <style>
+        /**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+ * how you can use CSS to style your Element's container.
+ */
+        .StripeElement {
+            box-sizing: border-box;
 
+            height: 40px;
+
+            padding: 10px 12px;
+
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background-color: white;
+
+            box-shadow: 0 1px 3px 0 #e6ebf1;
+            -webkit-transition: box-shadow 150ms ease;
+            transition: box-shadow 150ms ease;
+        }
+
+        .StripeElement--focus {
+            box-shadow: 0 1px 3px 0 #cfd7df;
+        }
+
+        .StripeElement--invalid {
+            border-color: #fa755a;
+        }
+
+        .StripeElement--webkit-autofill {
+            background-color: #fefde5 !important;
+        }
+    </style>
+@stop
+@section('custom-js-head')
+    <script src="https://js.stripe.com/v3/"></script>
+@endsection
 @section('content')
     <section id="cart_items">
         <div class="container">
@@ -51,37 +88,6 @@
                                     <input type="text" placeholder="Address 2">
                                 </form>
                             </div>
-                            <div class="form-two">
-                                <form>
-                                    <input type="text" placeholder="Zip / Postal Code *">
-                                    <select>
-                                        <option>-- Country --</option>
-                                        <option>United States</option>
-                                        <option>Bangladesh</option>
-                                        <option>UK</option>
-                                        <option>India</option>
-                                        <option>Pakistan</option>
-                                        <option>Ucrane</option>
-                                        <option>Canada</option>
-                                        <option>Dubai</option>
-                                    </select>
-                                    <select>
-                                        <option>-- State / Province / Region --</option>
-                                        <option>United States</option>
-                                        <option>Bangladesh</option>
-                                        <option>UK</option>
-                                        <option>India</option>
-                                        <option>Pakistan</option>
-                                        <option>Ucrane</option>
-                                        <option>Canada</option>
-                                        <option>Dubai</option>
-                                    </select>
-                                    <input type="password" placeholder="Confirm password">
-                                    <input type="text" placeholder="Phone *">
-                                    <input type="text" placeholder="Mobile Phone">
-                                    <input type="text" placeholder="Fax">
-                                </form>
-                            </div>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -89,7 +95,7 @@
                             <p>Shipping Order</p>
                             <textarea name="message" placeholder="Notes about your order, Special Notes for Delivery"
                                       rows="16"></textarea>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -129,7 +135,8 @@
                                 <form action="{{route('cart.destroy', $item->rowId)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="cart_quantity_delete" ><i class="fa fa-times"></i></button>
+                                    <button type="submit" class="cart_quantity_delete"><i class="fa fa-times"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>
@@ -170,6 +177,106 @@
                     </li>
                 </ul>
             </div>
+            <form action="{{route('checkout.payment')}}" method="post" id="payment-form">
+
+                @csrf
+                <div class="form-row">
+                    <label for="card-element">
+                        Credit or debit card
+                    </label>
+                    <div id="card-element">
+                        <!-- A Stripe Element will be inserted here. -->
+                    </div>
+
+                    <!-- Used to display form errors. -->
+                    <div id="card-errors" role="alert"></div>
+                </div>
+
+                <button>Submit Payment</button>
+            </form>
         </div>
     </section> <!--/#cart_items-->
+@endsection
+
+@section('custom-js')
+    <script>
+        (function () {
+            // Create a Stripe client.
+            var stripe = Stripe('{{config('services.stripe.key')}}');
+            // Create an instance of Elements.
+            var elements = stripe.elements();
+            // Custom styling can be passed to options when creating an Element.
+            // (Note that this demo uses a wider set of styles than the guide below.)
+            var style = {
+                base: {
+                    color: '#32325d',
+                    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                    fontSmoothing: 'antialiased',
+                    fontSize: '16px',
+                    '::placeholder': {
+                        color: '#aab7c4'
+                    }
+                },
+                invalid: {
+                    color: '#fa755a',
+                    iconColor: '#fa755a'
+                }
+            };
+
+// Create an instance of the card Element.
+            var card = elements.create('card', {
+                style: style,
+                hidePostalCode: true
+            });
+
+// Add an instance of the card Element into the `card-element` <div>.
+            card.mount('#card-element');
+
+// Handle real-time validation errors from the card Element.
+            card.on('change', function (event) {
+                var displayError = document.getElementById('card-errors');
+                if (event.error) {
+                    displayError.textContent = event.error.message;
+                } else {
+                    displayError.textContent = '';
+                }
+            });
+
+// Handle form submission.
+            var form = document.getElementById('payment-form');
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                var options = {
+                    name: 'Nunu Bhai',
+                }
+
+                stripe.createToken(card, options).then(function (result) {
+                    if (result.error) {
+                        // Inform the user if there was an error.
+                        var errorElement = document.getElementById('card-errors');
+                        errorElement.textContent = result.error.message;
+                    } else {
+                        // Send the token to your server.
+                        stripeTokenHandler(result.token);
+                    }
+                });
+            });
+
+// Submit the form with the token ID.
+            function stripeTokenHandler(token) {
+                // Insert the token ID into the form so it gets submitted to the server
+                var form = document.getElementById('payment-form');
+                var hiddenInput = document.createElement('input');
+                hiddenInput.setAttribute('type', 'hidden');
+                hiddenInput.setAttribute('name', 'stripeToken');
+                hiddenInput.setAttribute('value', token.id);
+                form.appendChild(hiddenInput);
+
+                // Submit the form
+                // alert(token.id)
+                form.submit();
+            }
+        })();
+    </script>
 @endsection
