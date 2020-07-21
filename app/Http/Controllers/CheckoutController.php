@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\OrderInvoice;
 use Cartalyst\Stripe\Exception\CardErrorException;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 
@@ -50,7 +52,8 @@ class CheckoutController extends Controller
                     'data2' => 'metadata 2',
                 ]
             ]);
-
+            request()->user()->notify((new OrderInvoice())->delay(now()->addSeconds(5)));
+            Cart::destroy();
             return back()->with('success_message', 'Thank you for your payment');
         } catch (CardErrorException $e) {
             return back()->withErrors('Error !'. $e->getMessage());
