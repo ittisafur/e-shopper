@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Notifications\OrderInvoice;
+use App\Order;
 use Cartalyst\Stripe\Exception\CardErrorException;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -40,21 +41,37 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
+        $name = Cart::content()->map(function ($item) {
+            return $item->model->name . ' - '. $item->model->sku;
+        })->values();
+        $sku = Cart::content()->map(function ($item) {
+            return $item->model->sku;
+        })->values();
+        $description = Cart::content()->map(function ($item) {
+            return $item->model->description;
+        })->values();
+
         try {
             $charge = Stripe::charges()->create([
-                'amount' => 40,
-                'currency' => 'CAD',
+                'amount' => Cart::total(),
+                'currency' => 'USD',
                 'source' => $request->stripeToken,
-                'description' => 'Description goes here',
+                'description' => $description,
                 'receipt_email' => $request->email,
-                'metadata' => [
-                    'data1' => 'metadata 1',
-                    'data2' => 'metadata 2',
-                ]
             ]);
             request()->user()->notify((new OrderInvoice())->delay(now()->addSeconds(5)));
+            Order::create([
+                'name' => $name,
+                'sku_id' => $sku,
+                'price' => floatval(preg_replace("/[^-0-9\.]/","",Cart::subtotal())),
+                'quantity' => floatval(preg_replace("/[^-0-9\.]/","",Cart::count())),
+                'total' => floatval(preg_replace("/[^-0-9\.]/","",Cart::total())),
+                'status' => true,
+                'ipn_status' => true,
+                'user_id' => auth()->user()->id
+            ]);
             Cart::destroy();
-            return back()->with('success_message', 'Thank you for your payment');
+            return redirect()->route('home')->with('success_message', 'Thank you for your payment');
         } catch (CardErrorException $e) {
             return back()->withErrors('Error !'. $e->getMessage());
         }

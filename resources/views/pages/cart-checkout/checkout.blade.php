@@ -47,59 +47,10 @@
                 </ol>
             </div><!--/breadcrums-->
 
-            <div class="step-one">
-                <h2 class="heading">Step1</h2>
-            </div>
-            <div class="checkout-options">
-                <h3>New User</h3>
-                <p>Checkout options</p>
-                <ul class="nav">
-                    <li>
-                        <label><input type="checkbox"> Register Account</label>
-                    </li>
-                    <li>
-                        <label><input type="checkbox"> Guest Checkout</label>
-                    </li>
-                    <li>
-                        <a href=""><i class="fa fa-times"></i>Cancel</a>
-                    </li>
-                </ul>
-            </div><!--/checkout-options-->
-
             <div class="register-req">
-                <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as
-                    Guest</p>
+                <p>Please use Register And Checkout to easily get access to your order history</p>
             </div><!--/register-req-->
 
-            <div class="shopper-informations">
-                <div class="row">
-                    <div class="col-sm-8 clearfix">
-                        <div class="bill-to">
-                            <p>Bill To</p>
-                            <div class="form-one">
-                                <form>
-                                    <input type="text" placeholder="Company Name">
-                                    <input type="text" placeholder="Email*">
-                                    <input type="text" placeholder="Title">
-                                    <input type="text" placeholder="First Name *">
-                                    <input type="text" placeholder="Middle Name">
-                                    <input type="text" placeholder="Last Name *">
-                                    <input type="text" placeholder="Address 1 *">
-                                    <input type="text" placeholder="Address 2">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="order-message">
-                            <p>Shipping Order</p>
-                            <textarea name="message" placeholder="Notes about your order, Special Notes for Delivery"
-                                      rows="16"></textarea>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="review-payment">
                 <h2>Review & Payment</h2>
             </div>
@@ -170,30 +121,28 @@
             <div class="payment-options">
                 <ul>
                     <li>
-                        <button type="submit" class="btn btn-primary">Pay on Delivery</button>
-                    </li>
-                    <li>
-                        <button type="submit" class="btn btn-primary">Pay Now</button>
+                        {{--                        <button type="submit" class="btn btn-primary">Pay on Delivery</button>--}}
                     </li>
                 </ul>
-            </div>
-            <form action="{{route('checkout.payment')}}" method="post" id="payment-form">
+                <form action="{{route('checkout.payment')}}" method="post" id="payment-form">
 
-                @csrf
-                <div class="form-row">
-                    <label for="card-element">
-                        Credit or debit card
-                    </label>
-                    <div id="card-element">
-                        <!-- A Stripe Element will be inserted here. -->
+                    @csrf
+                    <div class="form-row">
+                        <label for="card-element">
+                            Credit or debit card
+                        </label>
+                        <div id="card-element">
+                            <!-- A Stripe Element will be inserted here. -->
+                        </div>
+
+                        <!-- Used to display form errors. -->
+                        <div id="card-errors" role="alert"></div>
                     </div>
 
-                    <!-- Used to display form errors. -->
-                    <div id="card-errors" role="alert"></div>
-                </div>
+                    <button type="submit" class="btn btn-primary">Pay Now</button>
+                </form>
+            </div>
 
-                <button>Submit Payment</button>
-            </form>
         </div>
     </section> <!--/#cart_items-->
 @endsection
@@ -248,7 +197,7 @@
                 event.preventDefault();
 
                 var options = {
-                    name: 'Nunu Bhai',
+                    name: '{{ucfirst(auth()->user()->name)}}',
                 }
 
                 stripe.createToken(card, options).then(function (result) {
