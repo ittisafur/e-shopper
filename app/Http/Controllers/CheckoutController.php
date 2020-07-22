@@ -59,7 +59,8 @@ class CheckoutController extends Controller
                 'description' => $description,
                 'receipt_email' => $request->email,
             ]);
-            request()->user()->notify((new OrderInvoice())->delay(now()->addSeconds(5)));
+//            request()->user()->notify((new OrderInvoice())->delay(now()->addSeconds(5)));
+            request()->user()->notify((new OrderInvoice()));
             Order::create([
                 'name' => $name,
                 'sku_id' => $sku,

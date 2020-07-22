@@ -42,6 +42,9 @@ Route::post('/account', 'AccountController@store')->name('account.store')->middl
 
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider')->name('login.facebook');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
+
+Route::get('contact', 'ContactController@index')->name('contact.index');
+Route::post('contact', 'ContactController@store')->name('contact.store');
 Auth::routes(['verify' => true]);
 
 Route::group(['prefix' => 'admin'], function () {

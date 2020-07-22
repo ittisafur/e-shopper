@@ -13,8 +13,7 @@
             <li><a href="{{route('home')}}" class="active">Home</a></li>
             <li><a href="{{route('shop.index')}}">Shop</a></li>
             <li><a href="blog.html">Blog</a></li>
-            <li><a href="404.html">404</a></li>
-            <li><a href="contact-us.html">Contact</a></li>
+            <li><a href="{{route('contact.index')}}">Contact</a></li>
         </ul>
     </div>
 </div>
