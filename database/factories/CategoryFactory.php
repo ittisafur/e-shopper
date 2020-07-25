@@ -2,11 +2,14 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Category;
 use App\Model;
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(Category::class, function (Faker $faker) {
+    $name = $faker->word;
     return [
-        //
+        'name' => $name,
+        'slug' => str_slug($name)
     ];
 });

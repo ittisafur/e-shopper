@@ -23,16 +23,16 @@
                                     <div class="single-products">
                                         <a href="{{route('shop.show', $product->slug)}}">
                                             <div class="productinfo text-center">
-                                                <img src="images/shop/product{{rand(1,12)}}.jpg" alt=""/>
+                                                <img src="{{asset('images/shop/product'.rand(1,12).'.jpg')}}" alt=""/>
                                                 <h2>${{$product->price}}</h2>
                                                 <p>{{$product->name}}</p>
                                                 <form action="{{route('cart.store')}}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{$product->id}}">
-                                                <input type="hidden" name="name" value="{{$product->name}}">
-                                                <input type="hidden" name="price" value="{{$product->price}}">
-                                                <button type="submit" class="btn btn-default add-to-cart"><i
-                                                        class="fa fa-shopping-cart"></i>Add to cart</button>
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{$product->id}}">
+                                                    <input type="hidden" name="name" value="{{$product->name}}">
+                                                    <input type="hidden" name="price" value="{{$product->price}}">
+                                                    <button type="submit" class="btn btn-default add-to-cart"><i
+                                                            class="fa fa-shopping-cart"></i>Add to cart</button>
                                                 </form>
                                             </div>
                                         </a>

@@ -17,6 +17,12 @@ Route::get('/', 'HomeController@index')->name('home');
  * */
 Route::get('/shop', 'ShopController@index')->name('shop.index');
 Route::get('/shop/{productSlug}', 'ShopController@show')->name('shop.show');
+
+/*
+ * Category Routes
+ * */
+Route::get('/category/{slug}', 'CategoryController@index')->name('category.index');
+
 /*
  * Cart Routes
  * */

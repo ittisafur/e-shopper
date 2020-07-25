@@ -6,18 +6,20 @@ use App\Category;
 use App\Model\Product;
 use Illuminate\Http\Request;
 
-class ShopController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($slug)
     {
-        $products = Product::paginate(9);
         $categories = Category::all();
-        return view('pages.shop.shop-index', compact('products', 'categories'));
+        $category = Category::where('slug', $slug)->first();
+        $products = $category->products()->paginate(9);
+//        return response()->json($products, 200);
+        return view('pages.shop.category.category-index', compact('category', 'products', 'categories'));
     }
 
     /**
@@ -47,10 +49,9 @@ class ShopController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($id)
     {
-        $product = Product::where('slug', $slug)->firstOrFail();
-        return view('pages.shop.shop-single', compact('product'));
+        //
     }
 
     /**
