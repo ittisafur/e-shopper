@@ -25,6 +25,16 @@ Get your stripe key and secret from stripe from [here](https://dashboard.stripe.
 
 - Add your `STRIPE_KEY` and `STRIPE_SECRET`. 
 
+### Using Algolia
+I have implemented Vue autocomplete here
+
+- Change your appid and apikey in both resource/js/app.js and `ALGOLIA_APP_ID` , `ALGOLIA_SECRET` in .env file.
+- `npm install`
+- `npm run watch` or `npm run dev`
+- Run `php artisan scout:import "App\Model\Product"`
+- Run `php aritsan queue:work` - as `SCOUT_QUEUE` is set to true or else your data won't be uploaded.
+
+
 Now you are good to go.
 ## License
 

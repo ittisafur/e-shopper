@@ -27,9 +27,10 @@
 
     @include('partials.footer')
 
-    @include('partials.js.scripts')
-    @yield('custom-js')
 
 </div>
+<script src="{{asset('js/app.js')}}"></script>
+@include('partials.js.scripts')
+@yield('custom-js')
 </body>
 </html>

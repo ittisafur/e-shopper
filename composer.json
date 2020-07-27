@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "algolia/algoliasearch-client-php": "^2.2",
         "cartalyst/stripe-laravel": "^12.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
@@ -17,6 +18,7 @@
         "jrm2k6/cloudder": "^0.6.0",
         "laravel/framework": "^7.0",
         "laravel/helpers": "^1.2",
+        "laravel/scout": "^8.1",
         "laravel/socialite": "^4.4",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",

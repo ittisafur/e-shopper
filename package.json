@@ -23,7 +23,9 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
+        "algoliasearch": "^4.3.1",
         "tailwindcss": "^1.4.6",
-        "vue": "^2.6.11"
+        "vue": "^2.6.11",
+        "vue-instantsearch": "^3.1.0"
     }
 }

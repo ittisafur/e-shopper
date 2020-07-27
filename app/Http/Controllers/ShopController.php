@@ -31,14 +31,19 @@ class ShopController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Search products from storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function search(Request $request)
     {
-        //
+        $request->validate([
+            'query' => 'required|min:3'
+        ]);
+        $query = $request->input('query');
+        $products = Product::search($query)->paginate(2);
+        return view('pages.search-results', compact('products'));
     }
 
     /**

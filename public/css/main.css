@@ -2472,4 +2472,11 @@ textarea {
     font-family: 'Roboto', sans-serif;
     padding: 6px 25px;
 }
+.ais-Highlight-highlighted{
+    font-size: 16px;
+    color: #000;
+}
+.ais-Highlight{
+    font-size: 16px;
+    color: #000;
 }
