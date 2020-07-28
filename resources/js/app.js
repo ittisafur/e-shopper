@@ -15,7 +15,7 @@ const app = new Vue({
         },
         data: {
             searchClient: algoliasearch(
-                'B2J6Y456HY',
+                'C2J6Y456YH',
                 '1bbefe4260109b41565842b055a9373b'
             )
         }

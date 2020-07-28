@@ -66102,7 +66102,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
     Searchable: _Searchable__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: {
-    searchClient: algoliasearch_lite__WEBPACK_IMPORTED_MODULE_0___default()('B2J6Y456HY', '1bbefe4260109b41565842b055a9373b')
+    searchClient: algoliasearch_lite__WEBPACK_IMPORTED_MODULE_0___default()('C2J6Y456YH', '1bbefe4260109b41565842b055a9373b')
   }
 });
 

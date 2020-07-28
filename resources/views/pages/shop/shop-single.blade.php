@@ -8,48 +8,39 @@
                     <div class="product-details"><!--product-details-->
                         <div class="col-sm-6">
                             <div class="view-product">
-                                <img src="{{asset('images/product-details/1.jpg')}}" alt="" class="img-responsive"/>
+                                @if($product->image == '' || $product->image == null)
+                                    <img src="{{asset('images/image-not-found-1024x576.png')}}" alt="" class="img-responsive"/>
+                                @else
+
+                                    <img src="{{Voyager::image($product->image)}}" alt="" class="img-responsive"/>
+                                @endif
                                 <h3>ZOOM</h3>
                             </div>
-                            <div id="similar-product" class="carousel slide" data-ride="carousel">
+                            @if($product->images)
+                                <div id="similar-product" class="carousel slide" data-ride="carousel">
 
-                                <!-- Wrapper for slides -->
-                                <div class="carousel-inner">
-                                    <div class="item active">
-                                        <a href=""><img src="{{asset('images/product-details/similar1.jpg')}}"
-                                                        alt=""></a>
-                                        <a href=""><img src="{{asset('images/product-details/similar2.jpg')}}"
-                                                        alt=""></a>
-                                        <a href=""><img src="{{asset('images/product-details/similar3.jpg')}}"
-                                                        alt=""></a>
-                                    </div>
-                                    <div class="item">
-                                        <a href=""><img src="{{asset('images/product-details/similar1.jpg')}}"
-                                                        alt=""></a>
-                                        <a href=""><img src="{{asset('images/product-details/similar2.jpg')}}"
-                                                        alt=""></a>
-                                        <a href=""><img src="{{asset('images/product-details/similar3.jpg')}}"
-                                                        alt=""></a>
-                                    </div>
-                                    <div class="item">
-                                        <a href=""><img src="{{asset('images/product-details/similar1.jpg')}}"
-                                                        alt=""></a>
-                                        <a href=""><img src="{{asset('images/product-details/similar2.jpg')}}"
-                                                        alt=""></a>
-                                        <a href=""><img src="{{asset('images/product-details/similar3.jpg')}}"
-                                                        alt=""></a>
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner">
+
+                                        <div class="item active">
+                                            @foreach(json_decode($product->images, true) as $image)
+                                                <a href="">
+                                                    <img src="{{productImage($image)}}" alt="">
+                                                </a>
+                                            @endforeach
+                                        </div>
+
                                     </div>
 
+                                    <!-- Controls -->
+                                    <a class="left item-control" href="#similar-product" data-slide="prev">
+                                        <i class="fa fa-angle-left"></i>
+                                    </a>
+                                    <a class="right item-control" href="#similar-product" data-slide="next">
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
                                 </div>
-
-                                <!-- Controls -->
-                                <a class="left item-control" href="#similar-product" data-slide="prev">
-                                    <i class="fa fa-angle-left"></i>
-                                </a>
-                                <a class="right item-control" href="#similar-product" data-slide="next">
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
-                            </div>
+                            @endif
 
                         </div>
                         <div class="col-sm-6">

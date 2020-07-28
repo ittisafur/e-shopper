@@ -14,18 +14,18 @@ Currently the notifcation can be queued.
 - Make sure to change `QUEUE_CONNECTION` from `sync` to `database`.
 - Run `php artisan queue:work` in a new terminal tab.
 
-### Using Socialite
+## Using Socialite
 
 The application comes with only facebook login feature currently. Get your client_id and client_secret from [here](https://developers.facebook.com/).
 - Add `FB_CLIENT_ID` and `FB_CLIENT_SECRET`
 
-### Using Stripe
+## Using Stripe
 
 Get your stripe key and secret from stripe from [here](https://dashboard.stripe.com/test/apikeys) 
 
 - Add your `STRIPE_KEY` and `STRIPE_SECRET`. 
 
-### Using Algolia
+## Using Algolia
 I have implemented Vue autocomplete here
 
 - Change your appid and apikey in both resource/js/app.js and `ALGOLIA_APP_ID` , `ALGOLIA_SECRET` in .env file.
