@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "349f81cf5b6de780399f13151f81852e",
+    "content-hash": "2a7d14e9369f657e730d8490b45716da",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -2635,6 +2635,50 @@
                 "twitter"
             ],
             "time": "2016-08-17T00:36:58+00:00"
+        },
+        {
+            "name": "madebybob/voyager-config",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/madebybob/voyager-config.git",
+                "reference": "4394bfc92c0ac010fbdd33e3c4d45edb7fd526af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/madebybob/voyager-config/zipball/4394bfc92c0ac010fbdd33e3c4d45edb7fd526af",
+                "reference": "4394bfc92c0ac010fbdd33e3c4d45edb7fd526af",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MadeByBob\\VoyagerConfig\\VoyagerConfigServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MadeByBob\\VoyagerConfig\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bob Mulder",
+                    "email": "info@madebybob.nl"
+                },
+                {
+                    "name": "Marlo Corridor",
+                    "email": "corridor.marlo@sofcode.xyz"
+                }
+            ],
+            "description": "Voyager configuration in config files",
+            "time": "2020-06-03T08:05:00+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -7631,7 +7675,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "madebybob/voyager-config": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

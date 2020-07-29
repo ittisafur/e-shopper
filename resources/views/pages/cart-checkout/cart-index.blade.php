@@ -26,7 +26,7 @@
                             <tr>
                                 <td class="cart_product">
                                     <a href="{{route('shop.show', $item->model->slug)}}">
-                                        <img class="cart-image" src="images/shop/product{{rand(1,12)}}.jpg" alt="">
+                                        <img class="cart-image" src="{{Voyager::image($item->model->image)}}" alt="{{$item->model->name}}">
                                     </a>
                                 </td>
                                 <td class="cart_description">

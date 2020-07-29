@@ -70,7 +70,7 @@
                     @foreach(Cart::content() as $item)
                         <tr>
                             <td class="cart_product">
-                                <a href=""><img src="images/cart/one.png" alt=""></a>
+                                <a href="{{route('shop.show', $item->model->slug)}}"><img src="{{Voyager::image($item->model->image)}}" alt="{{$item->model->name}}"></a>
                             </td>
                             <td class="cart_description">
                                 <h4><a href="">{{$item->model->name}}</a></h4>

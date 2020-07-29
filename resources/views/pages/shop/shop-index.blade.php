@@ -16,14 +16,14 @@
 
                 <div class="col-sm-9 padding-right">
                     <div class="features_items"><!--features_items-->
-                        <h2 class="title text-center">Features Items</h2>
+                        <h2 class="title text-center">Explore our shop</h2>
                         @foreach($products as $product)
                             <div class="col-sm-4">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <a href="{{route('shop.show', $product->slug)}}">
                                             <div class="productinfo text-center">
-                                                <img src="images/shop/product{{rand(1,12)}}.jpg" alt=""/>
+                                                <img src="{{Voyager::image($product->image)}}" alt=""/>
                                                 <h2>${{$product->price}}</h2>
                                                 <p>{{$product->name}}</p>
                                                 <form action="{{route('cart.store')}}" method="POST">
