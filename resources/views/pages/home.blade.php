@@ -84,7 +84,7 @@
                                     <div class="single-products">
                                         <div class="productinfo text-center">
                                             <a href="{{route('shop.show', $product->slug)}}"><img
-                                                    src="images/shop/product{{rand(1,12)}}.jpg" alt=""/></a>
+                                                    src="{{Voyager::image($product->image)}}" alt=""/></a>
                                             <h2>${{$product->price}}</h2>
                                             <p>{{$product->name}}</p>
                                             <form action="{{route('cart.store')}}" method="POST">

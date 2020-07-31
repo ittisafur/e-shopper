@@ -28,7 +28,7 @@ class OrderInvoice extends Mailable
      */
     public function build()
     {
-        return $this->subject('Order Confirmmation')
+        return $this->from('sales@e-shopper.com','E-shopper Sales')->subject('Order Confirmmation')
             ->markdown('emails.order');
     }
 }
