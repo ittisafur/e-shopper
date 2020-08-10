@@ -63,11 +63,11 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
-        'voyager' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),// change here something specific to your application need
-            'url' => env('APP_URL').'/storage',
-            'visibility' => 'public',
+        'cloudinary' => [
+            'driver' => 's3',
+            'cloud_url' => env('CLOUDINARY_URL'),
+            'upload_preset' => env('CLOUDINARY_UPLOAD_PRESET'),
+            'notification_url' => env('CLOUDINARY_NOTIFICATION_URL'),
         ],
 
     ],
