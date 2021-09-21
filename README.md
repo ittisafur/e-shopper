@@ -24,6 +24,7 @@ The application comes with only facebook login feature currently. Get your clien
 Get your stripe key and secret from stripe from [here](https://dashboard.stripe.com/test/apikeys) 
 
 - Add your `STRIPE_KEY` and `STRIPE_SECRET`. 
+- 4242424242424242 month/year 318
 
 ## Using Algolia
 I have implemented Vue autocomplete here
@@ -36,6 +37,7 @@ I have implemented Vue autocomplete here
 
 
 Now you are good to go.
+
 ## License
 
 This is an open-source project under the [MIT license](https://opensource.org/licenses/MIT).
